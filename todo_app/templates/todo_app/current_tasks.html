@@ -1,0 +1,42 @@
+{% extends 'todo_app/base.html' %}
+
+
+{% block content %}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-10">
+        {% if tasks %}
+        <h1>{{ tasks.count }} Current task{{ todos.count|pluralize }}</h1>
+        {% else %}
+        <h1>Current Tasks</h1>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-10">
+        {% if tasks %}
+            <div class="list-group">
+                {% for task in tasks %}
+                <a href="{% url 'detail' task.id %}"
+                    class="list-group-item list-group-item-action{% if task.important %} list-group-item active{% endif %}">
+                    <b>
+                    {{ task.title }}
+                    </b>
+                    {% if task.description %}
+                        - {{ task.description|truncatechars:30 }}
+                    {% endif %}
+                </a>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="text-center">
+                <h2>Looks like you don't have any tasks! Nice work.</h2>
+                <br>
+                <a role="button" class="btn btn-primary" href="{% url 'create_todo' %}">New task</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

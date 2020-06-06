@@ -1,0 +1,32 @@
+{% extends 'todo_app/base.html' %}
+
+
+{% block content %}
+
+<div class="row-justify-content-center mt-5">
+    <div class="col-md-10">
+        <h2>Completed tasks</h2>
+        {% if tasks %}
+            <h5>Great job!</h5>
+        {% else %}
+            <h5>You have no completed tasks. Go ahead and start creating something cool!</h5>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row-justify-content-center mt-5">
+    <div class="col-md-10">
+        <div class="list-group">
+            {% for task in tasks %}
+                <a href="{% url 'detail' task.id %}"
+                    class="list-group-item list-group-item-action{% if todo.important %} list-group-item-danger{% endif %}">
+                    {{ task.title }}
+                    </b>
+                    - Completed on {{ task.completed_at|date:'M jS - P' }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
